@@ -1,0 +1,28 @@
+{
+  "name": "todo-list-vanilla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/index.js",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maslakoff/todo-list-vanilla-js.git"
+  },
+  "keywords": [
+    "js",
+    "todo",
+    "vanilla"
+  ],
+  "author": "Ihar Maslakou <igormaslakoff@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maslakoff/todo-list-vanilla-js/issues"
+  },
+  "homepage": "https://github.com/maslakoff/todo-list-vanilla-js#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+}
