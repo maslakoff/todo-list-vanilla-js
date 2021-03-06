@@ -1,4 +1,7 @@
 import '../styles/main.css';
+import { ID } from './utils';
+
+console.log(ID());
 
 let $input = document.querySelector('#js-insert');
 let $taskTable = document.querySelector("#js-list")
@@ -39,5 +42,5 @@ renderTasksList(tasks);
 
 
 
-// <li data-id="1614959131349" class="completed"><div class="todo"><input type="checkbox" class="toggle"><span>3</span><button class="destroy"></button></div><input type="text" class="edit"></li>
-// <li data-id="1614959131961"><div class="todo"><input type="checkbox" class="toggle"><span>4</span><button class="destroy"></button></div><input type="text" class="edit"></li>
+// <li id="1614959131349" class="completed"><div class="todo"><input type="checkbox" class="toggle"><span>3</span><button class="destroy"></button></div><input type="text" class="edit"></li>
+// <li id="1614959131961"><div class="todo"><input type="checkbox" class="toggle"><span>4</span><button class="destroy"></button></div><input type="text" class="edit"></li>
