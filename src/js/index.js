@@ -1,10 +1,10 @@
 import '../styles/main.css';
 import { ID } from './utils';
 
-console.log(ID());
 
 let $input = document.querySelector('#js-insert');
-let $taskTable = document.querySelector("#js-list")
+let $taskTable = document.querySelector("#js-list");
+let $counter = document.querySelector("#js-total");
 
 let tasks = [ 
     {text: "Buy", complited: false, id: ID()}, 
@@ -13,6 +13,7 @@ let tasks = [
 ]
 
 const renderTasksList = (list) => {
+    $counter.innerHTML =  `${list.length} items left ` ;
     $taskTable.innerHTML = '';
     list.forEach((task, index) => {
         // console.log(index, index % 2 === 0 ? 'чет' : className);
