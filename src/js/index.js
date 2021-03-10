@@ -34,10 +34,17 @@ const renderTasksList = (list) => {
         <button data-value="${task.id}" class="destroy"></button>
         <input type="text" class="edit">`
 
-        $taskTable.append(liTask);
         liTask.addEventListener('dblclick', () => {
             liTask.classList.add('editing');
         })
+        const editTask = document.createElement('input');
+        editTask.type = "text";
+        editTask.className = "edit";
+        editTask.value = task.text;
+
+        liTask.append(editTask);
+        $taskTable.append(liTask);
+        
     });
 }
 
@@ -46,6 +53,7 @@ $input.addEventListener('keyup', (event) => {
     tasks.push( {text: $input.value, completed: false, id: ID()} );
     $input.value = ""; 
     renderTasksList(tasks); 
+
    }
   
 });
