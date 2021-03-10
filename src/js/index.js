@@ -10,7 +10,7 @@ let tasks = [
     {text: "Buy", completed: false, id: ID()}, 
     {text: "some", completed: true, id: ID()},
     {text: "drinks", completed: false, id: ID()},
-]
+];
 
 const renderTasksList = (list) => {
     $counter.innerHTML =  `${list.length} items left ` ;
@@ -31,16 +31,26 @@ const renderTasksList = (list) => {
         <span>${task.text}</span>
         
         </div>
-        <button data-value="${task.id}" class="destroy"></button>
-        <input type="text" class="edit">`
+        <button data-value="${task.id}" class="destroy"></button>`
 
         liTask.addEventListener('dblclick', () => {
             liTask.classList.add('editing');
         })
+
         const editTask = document.createElement('input');
         editTask.type = "text";
         editTask.className = "edit";
         editTask.value = task.text;
+        editTask.addEventListener('keyup', (event) => {
+            if (event.key === 'Escape') {
+                liTask.classList.remove('editing');
+            }
+            if (event.key === "Enter") {
+                liTask.classList.remove('editing');
+                task.text = editTask.value
+                renderTasksList(list);
+            }
+        });
 
         liTask.append(editTask);
         $taskTable.append(liTask);
@@ -49,7 +59,7 @@ const renderTasksList = (list) => {
 }
 
 $input.addEventListener('keyup', (event) => {
-   if (event.which === 13) {
+   if (event.key === 'Enter') {
     tasks.push( {text: $input.value, completed: false, id: ID()} );
     $input.value = ""; 
     renderTasksList(tasks); 
@@ -81,6 +91,3 @@ function deleteComplete(event) {
 
 
 $taskTable.addEventListener('click', deleteComplete);
-
-// <li id="1614959131349" class="completed"><div class="todo"><input type="checkbox" class="toggle"><span>3</span><button class="destroy"></button></div><input type="text" class="edit"></li>
-// <li id="1614959131961"><div class="todo"><input type="checkbox" class="toggle"><span>4</span><button class="destroy"></button></div><input type="text" class="edit"></li>
