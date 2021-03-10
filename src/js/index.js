@@ -6,7 +6,11 @@ console.log(ID());
 let $input = document.querySelector('#js-insert');
 let $taskTable = document.querySelector("#js-list")
 
-let tasks = ["Buy", "somes", "drinks"];
+let tasks = [ 
+    {text: "Buy", complited: false, id: ID()}, 
+    {text: "some", complited: false, id: ID()},
+    {text: "drinks", complited: false, id: ID()},
+]
 
 const renderTasksList = (list) => {
     $taskTable.innerHTML = '';
@@ -19,7 +23,7 @@ const renderTasksList = (list) => {
         let listElement = `<li ${className}>
         <div class="todo">
         <input type="checkbox" class="toggle">
-        <span>${task}</span>
+        <span>${task.text}</span>
         <button class="destroy"></button>
         </div>
         <input type="text" class="edit"></li>`;
@@ -29,7 +33,7 @@ const renderTasksList = (list) => {
 
 $input.addEventListener('keyup', (event) => {
    if (event.which === 13) {
-    tasks.push($input.value)
+    tasks.push( {text: $input.value, complited: false, id: ID()} );
     $input.value = "";
     console.log('tasks: ', tasks);   
     renderTasksList(tasks); 
