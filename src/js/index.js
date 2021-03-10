@@ -7,9 +7,9 @@ let $taskTable = document.querySelector("#js-list");
 let $counter = document.querySelector("#js-total");
 
 let tasks = [ 
-    {text: "Buy", complited: false, id: ID()}, 
-    {text: "some", complited: false, id: ID()},
-    {text: "drinks", complited: false, id: ID()},
+    {text: "Buy", completed: false, id: ID()}, 
+    {text: "some", completed: false, id: ID()},
+    {text: "drinks", completed: false, id: ID()},
 ]
 
 const renderTasksList = (list) => {
@@ -21,12 +21,14 @@ const renderTasksList = (list) => {
         if(index % 2 !== 0) {
             className = 'class = "completed"'
         }
-        let listElement = `<li ${className}>
+        let listElement = `<li id="${task.id}" ${className}>
+        <input data-id="${task.id}" type="checkbox" class="toggle">
         <div class="todo">
-        <input type="checkbox" class="toggle">
+        
         <span>${task.text}</span>
-        <button class="destroy"></button>
+        
         </div>
+        <button data-value="${task.id}" class="destroy"></button>
         <input type="text" class="edit"></li>`;
         $taskTable.insertAdjacentHTML("beforeend", listElement)
     });
@@ -34,9 +36,8 @@ const renderTasksList = (list) => {
 
 $input.addEventListener('keyup', (event) => {
    if (event.which === 13) {
-    tasks.push( {text: $input.value, complited: false, id: ID()} );
-    $input.value = "";
-    console.log('tasks: ', tasks);   
+    tasks.push( {text: $input.value, completed: false, id: ID()} );
+    $input.value = ""; 
     renderTasksList(tasks); 
    }
   
@@ -44,8 +45,24 @@ $input.addEventListener('keyup', (event) => {
 
 renderTasksList(tasks);
 
+function deleteComplete(event) {
+    const deleteBtn = event.target;
+    if(deleteBtn.classList.contains('destroy')) {
+        const deleteId = deleteBtn.dataset.value;
+        tasks = tasks.filter(task => task.id !== deleteId);
+        renderTasksList(tasks);
+    }
 
+    const completeBtn = event.target;
+    if(completeBtn.classList.contains('toggle')) {
+        const todoTask = completeBtn.parentElement;
+        todoTask.classList.toggle('completed');
+        const element = tasks.pop();
+        renderTasksList(tasks);
+    }
+}
 
+$taskTable.addEventListener('click', deleteComplete);
 
 // <li id="1614959131349" class="completed"><div class="todo"><input type="checkbox" class="toggle"><span>3</span><button class="destroy"></button></div><input type="text" class="edit"></li>
 // <li id="1614959131961"><div class="todo"><input type="checkbox" class="toggle"><span>4</span><button class="destroy"></button></div><input type="text" class="edit"></li>
