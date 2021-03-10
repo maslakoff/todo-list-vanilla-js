@@ -200,6 +200,7 @@ a {
 }
 
 .toggle {
+    cursor: pointer;
     position: absolute;
     top: 14px;
     left: 14px;
@@ -292,6 +293,7 @@ a {
 }
 
 .destroy {
+    cursor: pointer;
     position: absolute;
     display: block;
     top: 0px;

@@ -8,21 +8,21 @@ let $counter = document.querySelector("#js-total");
 
 let tasks = [ 
     {text: "Buy", completed: false, id: ID()}, 
-    {text: "some", completed: false, id: ID()},
+    {text: "some", completed: true, id: ID()},
     {text: "drinks", completed: false, id: ID()},
 ]
 
 const renderTasksList = (list) => {
     $counter.innerHTML =  `${list.length} items left ` ;
     $taskTable.innerHTML = '';
-    list.forEach((task, index) => {
-        // console.log(index, index % 2 === 0 ? 'чет' : className);
+    list.forEach((task) => {
         let className = '';
-        if(index % 2 !== 0) {
-            className = 'class = "completed"'
+        if(task.completed) {
+            className = 'class="completed"'
         }
+        const checked = task.completed ? 'checked' : '';
         let listElement = `<li id="${task.id}" ${className}>
-        <input data-id="${task.id}" type="checkbox" class="toggle">
+        <input ${checked} data-id="${task.id}" type="checkbox" class="toggle">
         <div class="todo">
         
         <span>${task.text}</span>
@@ -55,12 +55,20 @@ function deleteComplete(event) {
 
     const completeBtn = event.target;
     if(completeBtn.classList.contains('toggle')) {
-        const todoTask = completeBtn.parentElement;
-        todoTask.classList.toggle('completed');
-        const element = tasks.pop();
+        // получить id
+        // инвертировать complete 
+        // отрендерить новые tasks
+        // console.log(item)
+        const changeId = completeBtn.dataset.id;
+        const task = tasks.find((el) => {
+            return el.id === changeId;
+        });
+        task.completed = !task.completed;
         renderTasksList(tasks);
     }
 }
+
+
 
 $taskTable.addEventListener('click', deleteComplete);
 
