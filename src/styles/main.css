@@ -185,6 +185,7 @@ a {
 
 .list li:hover .destroy {
     display: inline-block;
+    cursor: pointer;
 }
 
 .todo span {
