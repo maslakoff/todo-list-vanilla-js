@@ -24,11 +24,16 @@ class Item {
         const $toggle = document.createElement('input');
         $toggle.type = 'checkbox';
         $toggle.className = 'toggle';
+        if (this.completed) {
+            $toggle.checked = 'checked';
+            $li.classList.add('completed');
+        }
         $toggle.addEventListener('click', () => {
             console.log('click')
             this.toggleStatus();
             console.log(this);
-            $toggle.dispatchEvent(toggleEvent)
+            document.dispatchEvent(rerenderEvent)
+            // this.renderItem();
         });
 
         // $wrap.insertAdjacentHTML('beforeend', `<input type="checkbox" class="toggle" ${this.completed ? 'checked="true"' : ''}>`)
@@ -49,26 +54,24 @@ class Item {
             if (event.which === 13) {
                 $li.classList.remove('editing');
                 this.text = $editInput.value;
-                document.dispatchEvent(rerenderEvent);
+                // document.dispatchEvent(rerenderEvent);
+                this.renderItem();
             }
          });
 
          $li.appendChild($editInput);
         return $li;
-
-        return $li;
-
-        return `<li id="${this.id}">
-        <div class="todo">
-        <input data-id=${this.id} type="checkbox" class="toggle" ${this.completed ? 'checked="true"' : ''}>
-        <span>${this.text}</span>
-        <button data-id=${this.id} class="destroy"></button>
-        </div>
-        <input data-id=${this.id} type="text" class="edit"></li>`;
     }
 
     toggleStatus() {
         this.completed = !this.completed;
+    }
+
+    renderItem() {
+        const el = this.createElement();
+        const li = document.getElementById(this.id);
+        li.replaceWith(el);
+        // this.$content.append(element)
     }
 }
 export default Item;

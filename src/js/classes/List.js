@@ -6,11 +6,12 @@ class List {
         this.$content = document.querySelector(selector);
         this.items = items;
     }
-    
+
     render() {
         this.renderContent();
         this.renderCounter();
         this.initializeEvents();
+        this.saveToLocalStorage();
     }
 
     initializeEvents() {
@@ -29,7 +30,6 @@ class List {
                 const item = this.getItemById(id);
                 if (item instanceof Item) {
                     item.toggleStatus();
-                    console.log(this.items)
                 }
             })
         });
@@ -45,9 +45,6 @@ class List {
         //     })
         // });
 
-        document.addEventListener(NEED_RERENDER, (event) => {
-            this.render();
-        });
 
         // document.addEventListener('keyup', (event) => {
         //     if (event.which === 27) {
@@ -79,6 +76,7 @@ class List {
 
     add(item) {
         this.items.push(item);
+        // item.renderItem()
         this.render();
     }
 
@@ -88,13 +86,7 @@ class List {
     }
 
     saveToLocalStorage() {
-        localStorage = JSON.stringify(this.items);
-        localStorage.setItem('TODO', localStorage);
-    }
-
-    loadFromStorage() {
-        const items = JSON.parse(localStorage.getItem('TODO'));
-        return items;
+        localStorage.setItem('TODO', JSON.stringify(this.items));
     }
 }
 export default List;
