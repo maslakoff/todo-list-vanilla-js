@@ -97,12 +97,26 @@ const $tasksBtnFilter = document.querySelectorAll('#js-filters > li');
 
 $tasksFilter.addEventListener('click', (event) => {
     const targetFilter = event.target;
+    const filterType =  targetFilter.dataset.value;
 
     $tasksBtnFilter.forEach((filter) => {
-        if (filter.dataset.value === targetFilter.dataset.value) {
+        if (filter.dataset.value === filterType) {
             filter.classList.add('selected');
         } else {
             filter.classList.remove('selected');
         }
     })
+
+    let filteredTasks = tasks;
+
+    if (filterType === 'active') {
+        filteredTasks = filteredTasks
+        .filter(task => !task.completed)
+    } else if (filterType === 'completed') {
+        filteredTasks = filteredTasks
+        .filter(task => task.completed)
+    };
+
+    renderTasksList(filteredTasks); 
+    
 })
