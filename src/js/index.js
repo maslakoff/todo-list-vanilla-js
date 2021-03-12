@@ -91,3 +91,18 @@ function deleteComplete(event) {
 
 
 $taskTable.addEventListener('click', deleteComplete);
+
+const $tasksFilter = document.querySelector('#js-filters');
+const $tasksBtnFilter = document.querySelectorAll('#js-filters > li');
+
+$tasksFilter.addEventListener('click', (event) => {
+    const targetFilter = event.target;
+
+    $tasksBtnFilter.forEach((filter) => {
+        if (filter.dataset.value === targetFilter.dataset.value) {
+            filter.classList.add('selected');
+        } else {
+            filter.classList.remove('selected');
+        }
+    })
+})
