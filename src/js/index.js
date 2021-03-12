@@ -75,14 +75,14 @@ const renderTasksList = (list) => {
 }
 
 $input.addEventListener('keyup', (event) => {
+   let valueToStore = $input.value;
    if (event.key === 'Enter') {
-      tasks.push( {text: $input.value, completed: false, id: ID()} );
+      tasks.push( {text: valueToStore, completed: false, id: ID()} );
       $input.value = ""; 
+      valueToStore = ""
       renderTasksList(tasks); 
-   } else {
-      localStorage.setItem(inputLocalKey, $input.value)
-   }
-
+   } 
+   localStorage.setItem(inputLocalKey, valueToStore)
 }); 
 
 renderTasksList(tasks);
