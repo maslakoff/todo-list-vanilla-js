@@ -9,11 +9,24 @@ let $counter = document.querySelector("#js-total");
 const inputLocalKey = "text";
 $input.value = localStorage.getItem(inputLocalKey);
 
-let tasks = [ 
-    {text: "Buy", completed: false, id: ID()}, 
-    {text: "some", completed: true, id: ID()},
-    {text: "drinks", completed: false, id: ID()},
-];
+
+// const convertedList = JSON.stringify(list);
+// // console.log(JSON.stringify(item));
+
+// const obj = JSON.parse(text);
+// console.log(typeof item, item)
+// console.log(typeof converted, converted)
+// localStorage.setItem(
+//     'item', 
+//     converted
+//  );
+
+const keyLSTasks = 'tasks';
+
+let tasks = localStorage.getItem(keyLSTasks);
+    tasks = JSON.parse(tasks);
+
+// localStorage.setItem('tasks', JSON.stringify(tasks));
 
 const renderTasksList = (list) => {
     $counter.innerHTML =  `${list.length} items left ` ;
@@ -70,7 +83,7 @@ $input.addEventListener('keyup', (event) => {
       localStorage.setItem(inputLocalKey, $input.value)
    }
 
-});
+}); 
 
 renderTasksList(tasks);
 
