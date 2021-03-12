@@ -6,6 +6,9 @@ let $input = document.querySelector('#js-insert');
 let $taskTable = document.querySelector("#js-list");
 let $counter = document.querySelector("#js-total");
 
+const inputLocalKey = "text";
+$input.value = localStorage.getItem(inputLocalKey);
+
 let tasks = [ 
     {text: "Buy", completed: false, id: ID()}, 
     {text: "some", completed: true, id: ID()},
@@ -64,7 +67,7 @@ $input.addEventListener('keyup', (event) => {
       $input.value = ""; 
       renderTasksList(tasks); 
    } else {
-      localStorage.setItem("text", $input.value)
+      localStorage.setItem(inputLocalKey, $input.value)
    }
 
 });
@@ -130,3 +133,4 @@ clearButton.addEventListener("click", () => {
 
     renderTasksList(tasks); 
 });
+
