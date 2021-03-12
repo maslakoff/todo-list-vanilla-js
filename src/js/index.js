@@ -72,6 +72,8 @@ const renderTasksList = (list) => {
         $taskTable.append(liTask);
         
     });
+
+    localStorage.setItem('tasks', JSON.stringify(list));
 }
 
 $input.addEventListener('keyup', (event) => {
