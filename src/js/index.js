@@ -99,32 +99,33 @@ $tasksFilter.addEventListener('click', (event) => {
     const targetFilter = event.target;
     const filterType =  targetFilter.dataset.value;
 
-    $tasksBtnFilter.forEach((filter) => {
-        if (filter.dataset.value === filterType) {
-            filter.classList.add('selected');
-        } else {
-            filter.classList.remove('selected');
-        }
-    })
+    if (filterType) {
+      $tasksBtnFilter.forEach((filter) => {
+         if (filter.dataset.value === filterType) {
+               filter.classList.add('selected');
+         } else {
+               filter.classList.remove('selected');
+         }
+      })
 
-    let filteredTasks = tasks;
+      let filteredTasks = tasks;
 
-    if (filterType === 'active') {
-        filteredTasks = filteredTasks.filter(task => !task.completed)
-    } else if (filterType === 'completed') {
-        filteredTasks = filteredTasks.filter(task => task.completed)
-    };
+      if (filterType === 'active') {
+         filteredTasks = filteredTasks.filter(task => !task.completed)
+      } else if (filterType === 'completed') {
+         filteredTasks = filteredTasks.filter(task => task.completed)
+      };
 
-    renderTasksList(filteredTasks); 
+      renderTasksList(filteredTasks); 
+   }
     
 })
 
 let clearButton = document.querySelector("#js-clear-completed");
 clearButton.addEventListener("click", () => {
-   tasks = tasks.filter(elem => {
-     return !elem.completed
-    
-  })
+    tasks = tasks.filter(elem => {
+        return !elem.completed
+    })
 
-  renderTasksList(tasks); 
+    renderTasksList(tasks); 
 });
