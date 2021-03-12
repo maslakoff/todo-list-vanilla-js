@@ -110,13 +110,21 @@ $tasksFilter.addEventListener('click', (event) => {
     let filteredTasks = tasks;
 
     if (filterType === 'active') {
-        filteredTasks = filteredTasks
-        .filter(task => !task.completed)
+        filteredTasks = filteredTasks.filter(task => !task.completed)
     } else if (filterType === 'completed') {
-        filteredTasks = filteredTasks
-        .filter(task => task.completed)
+        filteredTasks = filteredTasks.filter(task => task.completed)
     };
 
     renderTasksList(filteredTasks); 
     
 })
+
+let clearButton = document.querySelector("#js-clear-completed");
+clearButton.addEventListener("click", () => {
+   tasks = tasks.filter(elem => {
+     return !elem.completed
+    
+  })
+
+  renderTasksList(tasks); 
+});
