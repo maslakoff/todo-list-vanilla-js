@@ -181,3 +181,9 @@ clearButton.addEventListener("click", () => {
 
     renderTasksList(tasks); 
 });
+
+window.onstorage = (ev) => {
+    tasks = JSON.parse(ev.newValue);
+    console.log(tasks);
+    renderTasksList(tasks);
+} 

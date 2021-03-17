@@ -24,5 +24,8 @@
   "homepage": "https://github.com/maslakoff/todo-list-vanilla-js#readme",
   "devDependencies": {
     "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
