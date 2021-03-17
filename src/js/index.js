@@ -86,7 +86,7 @@ const renderTasksList = (list) => {
         
     });
 
-    localStorage.setItem('tasks', JSON.stringify(list));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 const hideCompletedBtn = (tasks) => {
@@ -109,6 +109,8 @@ $input.addEventListener('keyup', (event) => {
    localStorage.setItem(inputLocalKey, valueToStore)
 }); 
 
+
+// const filtered = task
 renderTasksList(tasks);
 
 function deleteComplete(event) {
@@ -150,7 +152,7 @@ $tasksFilter.addEventListener('click', (event) => {
       
       localStorage.setItem(selectedFilterKey, filterType);
 
-      let filteredTasks = tasks;
+      let filteredTasks = tasks; 
 
       if (filterType === 'active') {
          filteredTasks = filteredTasks.filter(task => !task.completed)
@@ -161,6 +163,15 @@ $tasksFilter.addEventListener('click', (event) => {
       renderTasksList(filteredTasks); 
    }
     
+})
+let selectedLocalFilter = localStorage.getItem(selectedFilterKey);
+
+$tasksBtnFilter.forEach((filter) => {
+    if (selectedLocalFilter === filter.dataset.value) {
+        filter.classList.add('selected');
+    } else {
+        filter.classList.remove('selected');
+    }
 })
 
 clearButton.addEventListener("click", () => {
