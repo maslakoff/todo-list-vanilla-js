@@ -39,6 +39,7 @@ if (tasks === null ) {
 // localStorage.setItem('tasks', JSON.stringify(tasks));
 
 const renderTasksList = (list) => {
+    hideCompletedBtn(tasks);
     $counter.innerHTML =  `${list.length} items left ` ;
     $taskTable.innerHTML = '';
     list.forEach((task) => {
@@ -125,7 +126,6 @@ function deleteComplete(event) {
         task.completed = !task.completed;
         renderTasksList(tasks);
     }
-    hideCompletedBtn(tasks);
 }
 
 
@@ -165,7 +165,4 @@ clearButton.addEventListener("click", () => {
     })
 
     renderTasksList(tasks); 
-    hideCompletedBtn(tasks);
 });
-
-hideCompletedBtn(tasks);
