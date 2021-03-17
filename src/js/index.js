@@ -11,7 +11,9 @@ let clearButton = document.querySelector("#js-clear-completed");
 
 
 const inputLocalKey = "text";
+const selectedFilterKey = "selectedFilter";
 $input.value = localStorage.getItem(inputLocalKey);
+
 
 
 // const convertedList = JSON.stringify(list);
@@ -145,6 +147,8 @@ $tasksFilter.addEventListener('click', (event) => {
                filter.classList.remove('selected');
          }
       })
+      
+      localStorage.setItem(selectedFilterKey, filterType);
 
       let filteredTasks = tasks;
 
