@@ -5,6 +5,10 @@ import { ID } from './utils';
 let $input = document.querySelector('#js-insert');
 let $taskTable = document.querySelector("#js-list");
 let $counter = document.querySelector("#js-total");
+const $tasksFilter = document.querySelector('#js-filters');
+const $tasksBtnFilter = document.querySelectorAll('#js-filters > li');
+let clearButton = document.querySelector("#js-clear-completed");
+
 
 const inputLocalKey = "text";
 $input.value = localStorage.getItem(inputLocalKey);
@@ -24,7 +28,13 @@ $input.value = localStorage.getItem(inputLocalKey);
 const keyLSTasks = 'tasks';
 
 let tasks = localStorage.getItem(keyLSTasks);
+
+if (tasks === null ) {
+    tasks = [];
+} else {
     tasks = JSON.parse(tasks);
+}
+
 
 // localStorage.setItem('tasks', JSON.stringify(tasks));
 
@@ -76,6 +86,15 @@ const renderTasksList = (list) => {
     localStorage.setItem('tasks', JSON.stringify(list));
 }
 
+const hideCompletedBtn = (tasks) => {
+    const completedTask = tasks.find(task => task.completed);
+    if (completedTask) {
+        clearButton.style.display = 'inline-block';
+    } else {
+        clearButton.style.display = 'none';
+    }
+}
+
 $input.addEventListener('keyup', (event) => {
    let valueToStore = $input.value;
    if (event.key === 'Enter') {
@@ -106,13 +125,13 @@ function deleteComplete(event) {
         task.completed = !task.completed;
         renderTasksList(tasks);
     }
+    hideCompletedBtn(tasks);
 }
 
 
 $taskTable.addEventListener('click', deleteComplete);
 
-const $tasksFilter = document.querySelector('#js-filters');
-const $tasksBtnFilter = document.querySelectorAll('#js-filters > li');
+
 
 $tasksFilter.addEventListener('click', (event) => {
     const targetFilter = event.target;
@@ -140,12 +159,13 @@ $tasksFilter.addEventListener('click', (event) => {
     
 })
 
-let clearButton = document.querySelector("#js-clear-completed");
 clearButton.addEventListener("click", () => {
     tasks = tasks.filter(elem => {
         return !elem.completed
     })
 
     renderTasksList(tasks); 
+    hideCompletedBtn(tasks);
 });
 
+hideCompletedBtn(tasks);
