@@ -5,7 +5,8 @@
   "main": "src/js/index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build": "parcel build ./src/index.html",
+    "api": "json-server --watch src/db.json"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/maslakoff/todo-list-vanilla-js#readme",
   "devDependencies": {
+    "json-server": "^0.16.3",
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
