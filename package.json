@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/maslakoff/todo-list-vanilla-js#readme",
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
     "json-server": "^0.16.3",
     "parcel-bundler": "^1.12.3"
   },
