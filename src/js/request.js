@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime';
-
 const TODO_URL = 'http://localhost:3000/todos';
 
 export async function getTasksAsync() {

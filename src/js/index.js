@@ -1,4 +1,6 @@
+import 'regenerator-runtime/runtime';
 import '../styles/main.css';
+import { getTasksAsync } from './request';
 import { ID } from './utils';
 
 async function app() {
@@ -13,6 +15,8 @@ async function app() {
     const inputLocalKey = "text";
     const selectedFilterKey = "selectedFilter";
     $input.value = localStorage.getItem(inputLocalKey);
+    
+    const serverTasks = await getTasksAsync();
 
     // const convertedList = JSON.stringify(list);
     // // console.log(JSON.stringify(item));
