@@ -1,6 +1,11 @@
 import 'regenerator-runtime/runtime';
 import '../styles/main.css';
-import { getTasksAsync, createTaskAsync, deleteTaskAsync } from './request';
+import { 
+    getTasksAsync, 
+    createTaskAsync,
+    updateTaskAsynс,
+    deleteTaskAsync,
+} from './request';
 import { ID } from './utils';
 
 async function app() {
@@ -18,7 +23,12 @@ async function app() {
     
     const serverTasks = await getTasksAsync();
 
-    console.log(serverTasks);
+    // const updated = await updateTaskAsync({
+    //     "text": "Task 13 updates",
+    //     "completed": false,
+    //     "id": 10
+    //   });
+    // console.log(serverTasks);
     // const convertedList = JSON.stringify(list);
     // // console.log(JSON.stringify(item));
 
@@ -67,6 +77,7 @@ async function app() {
 
             liTask.addEventListener('dblclick', () => {
                 liTask.classList.add('editing');
+                
             })
 
             const editTask = document.createElement('input');
@@ -79,8 +90,9 @@ async function app() {
                 }
                 if (event.key === "Enter") {
                     liTask.classList.remove('editing');
-                    task.text = editTask.value
+                    task.text = editTask.value;
                     renderTasksList(list);
+                    updateTaskAsynс(task.id, task);
                 }
             });
 
@@ -88,6 +100,7 @@ async function app() {
             $taskTable.append(liTask);
 
         });
+
 
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
@@ -107,6 +120,7 @@ async function app() {
             const task = { text: valueToStore, completed: false };
             const created = await createTaskAsync(task);
             tasks.push(created);
+            
             $input.value = "";
             valueToStore = ""
             renderTasksList(tasks);

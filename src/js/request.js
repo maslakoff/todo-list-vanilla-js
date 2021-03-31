@@ -27,7 +27,7 @@ export async function createTaskAsync(task) {
     return dataRes;
 }
 
-export async function updateTaskAsync(task) {
+export async function updateTaskAsynс(id, task) {
     const options = {
         method: 'PATCH',
         headers: {
@@ -35,7 +35,7 @@ export async function updateTaskAsync(task) {
         },
         body: JSON.stringify(task),
     };
-    const url = `${TODO_URL}/${task.id}`;
+    const url = `${TODO_URL}/${id}`;
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
