@@ -22,9 +22,8 @@ async function app() {
     const selectedFilterKey = "selectedFilter";
     $input.value = localStorage.getItem(inputLocalKey);
     
-    const serverTasks = await getTasksAsync();
-
     const keyLSTasks = 'tasks';
+    const timeKey = 'lastDateModified'
 
     let tasks = localStorage.getItem(keyLSTasks);
 
@@ -35,11 +34,30 @@ async function app() {
     }
 
     const dateServer = await getDateAsync();
-    const lastDateModified = dateServer.lastDateModified;
+    const serverDate = dateServer.lastDateModified;
+    let localDate = localStorage.getItem(timeKey);
 
-    console.log(lastDateModified);
-    console.log('server: ', serverTasks);
-    console.log('local: ', tasks);
+    if (serverDate > localDate) {
+        const serverTasks = await getTasksAsync();
+        tasks = serverTasks;
+        localStorage.setItem(timeKey, serverDate);
+        localStorage.setItem(keyLSTasks, serverTasks);
+    } else if(serverDate < localDate) {
+        const serverTasks = await getTasksAsync();
+        tasks.forEach(task => {
+        })
+        // serverTask.id = localTask.id &&
+        // serverTask.status = localTask.status 
+
+        // serverTasks !localTask   - DELETE
+
+        // !serverTasks localTask   - POST
+
+        // serverTasks.text !== localTask.text   - PATCH
+
+        // POST tasks
+
+    }
 
 
 
@@ -85,6 +103,7 @@ async function app() {
                     task.text = editTask.value;
                     renderTasksList(list);
                     updateTaskAsynс(task.id, task);
+                    localStorage.setItem(timeKey, JSON.stringify(Date.now()));
                 }
             });
 
@@ -92,8 +111,6 @@ async function app() {
             $taskTable.append(liTask);
 
         });
-
-
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
@@ -116,8 +133,10 @@ async function app() {
             $input.value = "";
             valueToStore = ""
             renderTasksList(tasks);
+            localStorage.setItem(timeKey, JSON.stringify(Date.now()));
         }
         localStorage.setItem(inputLocalKey, valueToStore)
+
     });
 
 
@@ -142,6 +161,7 @@ async function app() {
             task.completed = !task.completed;
             renderTasksList(tasks);
         }
+        localStorage.setItem(timeKey, JSON.stringify(Date.now()));
     }
 
 
