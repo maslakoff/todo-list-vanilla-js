@@ -5,6 +5,7 @@ import {
     createTaskAsync,
     updateTaskAsynс,
     deleteTaskAsync,
+    getDateAsync,
 } from './request';
 import { ID } from './utils';
 
@@ -23,23 +24,6 @@ async function app() {
     
     const serverTasks = await getTasksAsync();
 
-    // const updated = await updateTaskAsync({
-    //     "text": "Task 13 updates",
-    //     "completed": false,
-    //     "id": 10
-    //   });
-    // console.log(serverTasks);
-    // const convertedList = JSON.stringify(list);
-    // // console.log(JSON.stringify(item));
-
-    // const obj = JSON.parse(text);
-    // console.log(typeof item, item)
-    // console.log(typeof converted, converted)
-    // localStorage.setItem(
-    //     'item', 
-    //     converted
-    //  );
-
     const keyLSTasks = 'tasks';
 
     let tasks = localStorage.getItem(keyLSTasks);
@@ -49,6 +33,14 @@ async function app() {
     } else {
         tasks = JSON.parse(tasks);
     }
+
+    const dateServer = await getDateAsync();
+    const lastDateModified = dateServer.lastDateModified;
+
+    console.log(lastDateModified);
+    console.log('server: ', serverTasks);
+    console.log('local: ', tasks);
+
 
 
     // localStorage.setItem('tasks', JSON.stringify(tasks));

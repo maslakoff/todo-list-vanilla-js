@@ -50,6 +50,13 @@ export async function deleteTaskAsync(id) {
     return data;
 }
 
+export async function getDateAsync() {
+    const infoUrl = "http://localhost:3000/info"
+    const res = await fetch(`${infoUrl}`);
+    const dataRes = await res.json();
+    return dataRes;
+}
+
 
     // const tasks = await getTasksAsync();
     // console.log('List', tasks)
