@@ -1,3 +1,4 @@
+
 const TODO_URL = 'http://localhost:3000/todos';
 
 export async function getTasksAsync() {
@@ -41,7 +42,7 @@ export async function updateTaskAsync(task) {
 }
 
 export async function deleteTaskAsync(id) {
-    const url = `${TODO_URL}/${task.id}`;
+    const url = `${TODO_URL}/${id}`;
     const res = await fetch(url, {
         method: 'DELETE',
     })

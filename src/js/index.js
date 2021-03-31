@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import '../styles/main.css';
-import { getTasksAsync } from './request';
+import { getTasksAsync, createTaskAsync, deleteTaskAsync } from './request';
 import { ID } from './utils';
 
 async function app() {
@@ -18,6 +18,7 @@ async function app() {
     
     const serverTasks = await getTasksAsync();
 
+    console.log(serverTasks);
     // const convertedList = JSON.stringify(list);
     // // console.log(JSON.stringify(item));
 
@@ -100,10 +101,12 @@ async function app() {
         }
     }
 
-    $input.addEventListener('keyup', (event) => {
+    $input.addEventListener('keyup', async (event) => {
         let valueToStore = $input.value;
         if (event.key === 'Enter') {
-            tasks.push({ text: valueToStore, completed: false, id: ID() });
+            const task = { text: valueToStore, completed: false };
+            const created = await createTaskAsync(task);
+            tasks.push(created);
             $input.value = "";
             valueToStore = ""
             renderTasksList(tasks);
@@ -119,8 +122,9 @@ async function app() {
         const deleteBtn = event.target;
         if (deleteBtn.classList.contains('destroy')) {
             const deleteId = deleteBtn.dataset.value;
-            tasks = tasks.filter(task => task.id !== deleteId);
+            tasks = tasks.filter(task => task.id !== Number.parseInt(deleteId, 10));
             renderTasksList(tasks);
+            deleteTaskAsync(deleteId);
         }
 
         const completeBtn = event.target;
